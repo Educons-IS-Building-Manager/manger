@@ -1,11 +1,19 @@
 package me.manger.model;
 
+import me.manger.model.building.Building;
+import me.manger.model.user.User;
+
+import java.util.ArrayList;
+
 public class Company {
 
 	private String name;
 	private String email;
 	private String phoneNumber;
 	private double price;
+
+	private ArrayList<User> admins;
+	private ArrayList<Building> buildings;
 
 	public Company() {}
 
@@ -14,6 +22,8 @@ public class Company {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.price = price;
+		this.admins = new ArrayList<>();
+		this.buildings = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -46,6 +56,14 @@ public class Company {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public ArrayList<User> getAdmins() {
+		return admins;
+	}
+
+	public ArrayList<Building> getBuildings() {
+		return buildings;
 	}
 
 }

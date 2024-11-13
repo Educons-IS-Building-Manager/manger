@@ -1,4 +1,4 @@
-package me.manger.model;
+package me.manger.model.building;
 
 import java.util.ArrayList;
 import me.manger.model.user.User;
