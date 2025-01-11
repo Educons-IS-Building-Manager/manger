@@ -9,10 +9,10 @@ public class Building {
 
     private ArrayList<Apartment> apartments;
 
-    public Building(String address, double totalMoney, ArrayList<Apartment> apartments) {
+    public Building(String address, double totalMoney) {
         this.address = address;
         this.totalMoney = totalMoney;
-        this.apartments = apartments;
+        this.apartments = new ArrayList<>();
     }
 
     public String getAddress() {

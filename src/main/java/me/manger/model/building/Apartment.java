@@ -11,11 +11,11 @@ public class Apartment {
 
     private ArrayList<Owner> owners;
 
-    public Apartment(int number, double area, double balance, ArrayList<Owner> owners) {
+    public Apartment(int number, double area, double balance) {
         this.number = number;
         this.area = area;
         this.balance = balance;
-        this.owners = owners;
+        this.owners = new ArrayList<>();
     }
 
     public int getNumber() {

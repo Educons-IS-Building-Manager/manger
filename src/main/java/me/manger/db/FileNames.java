@@ -6,9 +6,8 @@ public class FileNames {
     public static final String DATA = "data";
 
     // Files
-    public static final String USERS = "data/owners.dat";
+    public static final String OWNERS = "data/owners.dat";
     public static final String APARTMENTS = "data/apartments.dat";
-    public static final String DATABASE = "data/database.dat";
     public static final String COMPANY = "data/company.dat";
     public static final String BUILDING = "data/building.dat";
     public static final String LEDGER = "data/ledger.dat";
