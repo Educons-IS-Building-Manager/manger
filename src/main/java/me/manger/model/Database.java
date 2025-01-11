@@ -23,11 +23,11 @@ public class Database {
         return company;
     }
 
-    public Building getBuilding() {
+    public static Building getBuilding() {
         return building;
     }
 
-    public Admin getAdmin() {
+    public static Admin getAdmin() {
         return admin;
     }
 
