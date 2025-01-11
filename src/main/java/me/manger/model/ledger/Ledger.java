@@ -18,4 +18,8 @@ public class Ledger {
         return entries;
     }
 
+    public void addEntry(String message) {
+        entries.add(new Entry(message));
+    }
+
 }
