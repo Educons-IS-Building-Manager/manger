@@ -12,6 +12,11 @@ public class Entry {
         this.message = message;
     }
 
+    public Entry(long date, String message) {
+        this.date = new Date(date);
+        this.message = message;
+    }
+
     public Date getDate() {
         return date;
     }

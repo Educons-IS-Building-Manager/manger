@@ -10,6 +10,10 @@ public class Ledger {
         this.entries = entries;
     }
 
+    public Ledger() {
+        entries = new ArrayList<>();
+    }
+
     public ArrayList<Entry> getEntries() {
         return entries;
     }
