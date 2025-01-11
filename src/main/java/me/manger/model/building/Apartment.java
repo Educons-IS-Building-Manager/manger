@@ -11,4 +11,31 @@ public class Apartment {
 
     private ArrayList<User> owners;
 
+    public Apartment(int number, double area, double balance, ArrayList<User> owners) {
+        this.number = number;
+        this.area = area;
+        this.balance = balance;
+        this.owners = owners;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public ArrayList<User> getOwners() {
+        return owners;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
 }
