@@ -12,6 +12,11 @@ public class Notification {
         this.message = message;
     }
 
+    public Notification(long date, String message) {
+        this.date = new Date(date);
+        this.message = message;
+    }
+
     public Date getDate() {
         return date;
     }

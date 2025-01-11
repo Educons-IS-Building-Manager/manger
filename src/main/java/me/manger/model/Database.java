@@ -35,7 +35,7 @@ public class Database {
         return president;
     }
 
-    public static ArrayList<Owner> getUsers() {
+    public static ArrayList<Owner> getOwners() {
         return owners;
     }
 
@@ -59,7 +59,7 @@ public class Database {
         Database.president = president;
     }
 
-    public static void setUsers(ArrayList<Owner> owners) {
+    public static void setOwners(ArrayList<Owner> owners) {
         Database.owners = owners;
     }
 

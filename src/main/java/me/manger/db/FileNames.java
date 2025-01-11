@@ -4,10 +4,10 @@ public class FileNames {
 
     // Directories
     public static final String DATA = "data";
-    public static final String USERS = "data/users";
-    public static final String APARTMENTS = "data/apartments";
 
     // Files
+    public static final String USERS = "data/owners.dat";
+    public static final String APARTMENTS = "data/apartments.dat";
     public static final String DATABASE = "data/database.dat";
     public static final String COMPANY = "data/company.dat";
     public static final String BUILDING = "data/building.dat";
