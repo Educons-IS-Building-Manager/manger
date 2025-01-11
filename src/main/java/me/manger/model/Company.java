@@ -14,6 +14,7 @@ public class Company {
 
 	private User admin;
 	private Building building;
+	private ArrayList<User> users;
 
 	public Company() {}
 
