@@ -1,11 +1,10 @@
 package me.manger.model.user;
 
-import me.manger.model.building.Apartment;
 import me.manger.model.Notification;
 
 import java.util.ArrayList;
 
-public class User {
+public class President {
 
     private String firstName;
     private String lastName;
@@ -14,22 +13,17 @@ public class User {
     private String username;
     private String password;
 
-    private UserType type;
-
     private ArrayList<Notification> notifications;
-    private ArrayList<Apartment> apartments;
 
-    public User(String firstName, String lastName, String email, String phone, String username, String password,
-                UserType type, ArrayList<Notification> notifications, ArrayList<Apartment> apartments) {
+    public President(String firstName, String lastName, String email, String phone, String username, String password,
+                 ArrayList<Notification> notifications) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.username = username;
         this.password = password;
-        this.type = type;
         this.notifications = notifications;
-        this.apartments = apartments;
     }
 
     public String getFirstName() {
@@ -56,16 +50,8 @@ public class User {
         return password;
     }
 
-    public UserType getType() {
-        return type;
-    }
-
     public ArrayList<Notification> getNotifications() {
         return notifications;
-    }
-
-    public ArrayList<Apartment> getApartments() {
-        return apartments;
     }
 
     public void setFirstName(String firstName) {

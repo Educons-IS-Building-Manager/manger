@@ -12,5 +12,6 @@ public class FileNames {
     public static final String COMPANY = "data/company.dat";
     public static final String BUILDING = "data/building.dat";
     public static final String LEDGER = "data/ledger.dat";
+    public static final String STAFF = "data/staff.dat";
 
 }

@@ -1,7 +1,7 @@
 package me.manger.model.building;
 
 import java.util.ArrayList;
-import me.manger.model.user.User;
+import me.manger.model.user.Owner;
 
 public class Apartment {
 
@@ -9,9 +9,9 @@ public class Apartment {
     private double area;
     private double balance;
 
-    private ArrayList<User> owners;
+    private ArrayList<Owner> owners;
 
-    public Apartment(int number, double area, double balance, ArrayList<User> owners) {
+    public Apartment(int number, double area, double balance, ArrayList<Owner> owners) {
         this.number = number;
         this.area = area;
         this.balance = balance;
@@ -30,7 +30,7 @@ public class Apartment {
         return balance;
     }
 
-    public ArrayList<User> getOwners() {
+    public ArrayList<Owner> getOwners() {
         return owners;
     }
 
