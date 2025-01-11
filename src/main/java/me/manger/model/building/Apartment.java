@@ -7,6 +7,8 @@ public class Apartment {
 
     private int number;
     private double area;
+    private double balance;
+
     private ArrayList<User> owners;
 
 }

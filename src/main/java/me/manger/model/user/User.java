@@ -1,6 +1,7 @@
 package me.manger.model.user;
 
-import me.manger.model.notification.Notification;
+import me.manger.model.building.Apartment;
+import me.manger.model.Notification;
 
 import java.util.ArrayList;
 
@@ -12,9 +13,10 @@ public class User {
     private String phone;
     private String username;
     private String password;
-    private double debt;
+
     private UserType type;
 
     private ArrayList<Notification> notifications;
+    private ArrayList<Apartment> apartments;
 
 }
