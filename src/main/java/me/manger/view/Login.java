@@ -62,7 +62,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(pfLozinka, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 220, 40));
         getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, -1, -1));
 
-        jmain.setIcon(new javax.swing.ImageIcon("C:\\Users\\Relja\\Downloads\\Login.jpg")); // NOI18N
+        jmain.setIcon(new javax.swing.ImageIcon("C:\\Users\\Relja\\Documents\\NetBeansProjects\\manger\\src\\main\\resources\\images\\Login.jpg")); // NOI18N
         jmain.setText("jLabel3");
         getContentPane().add(jmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
 
