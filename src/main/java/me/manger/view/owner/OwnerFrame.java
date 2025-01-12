@@ -1,34 +1,55 @@
 package me.manger.view.owner;
 
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import me.manger.model.Database;
 import me.manger.model.Options;
 import me.manger.model.building.Apartment;
+import me.manger.model.ledger.Entry;
 import me.manger.model.user.Owner;
 
 public class OwnerFrame extends javax.swing.JFrame {
 
-    DefaultTableModel model;
+    DefaultTableModel modelMain;
+    DefaultTableModel modelLedger;
     
     public OwnerFrame() {
         initComponents();
-        init();
+        initMain();
+        initLedger();
     }
     
-    private void init() {
+    private void initLedger() {
+        ledgerTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        ledgerTable.getColumnModel().getColumn(0).setPreferredWidth(220);
+        ledgerTable.getColumnModel().getColumn(0).setMaxWidth(220);
+        
+        ledgerTable.getTableHeader().setFont(new Font("sansserif", Font.BOLD, 18));
+        ledgerTable.setRowHeight(30);
+        
+        modelLedger = (DefaultTableModel) ledgerTable.getModel();
+        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+        for(Entry entry : Database.getLedger().getEntries()) {
+            modelLedger.addRow(new Object[]{dt.format(entry.getDate()), entry.getMessage()});
+        }
+        ledgerTable.changeSelection(ledgerTable.getRowCount() - 1, 0, false, false);
+    }
+    
+    private void initMain() {
         Owner owner = Options.loggedIn;
         fullName.setText(owner.getFirstName() + " " + owner.getLastName());
         email.setText(owner.getEmail());
         phone.setText(owner.getPhone());
         buildingBalance.setText(Database.getBuilding().getTotalMoney() + "€");
-        model = (DefaultTableModel) jTable1.getModel();
+        modelMain = (DefaultTableModel) mainTable.getModel();
         for(Apartment apartment : owner.getApartments()) {
-            model.addRow(new Object[]{apartment.getNumber(), apartment.getBalance()});
+            modelMain.addRow(new Object[]{apartment.getNumber(), apartment.getBalance()});
         }
         
-        jTable1.getTableHeader().setFont(new Font("sansserif", Font.BOLD, 18));
-        jTable1.setRowHeight(30);
+        mainTable.getTableHeader().setFont(new Font("sansserif", Font.BOLD, 18));
+        mainTable.setRowHeight(30);
     }
     
     @SuppressWarnings("unchecked")
@@ -41,11 +62,13 @@ public class OwnerFrame extends javax.swing.JFrame {
         email = new javax.swing.JLabel();
         phone = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        mainTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         buildingBalance = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ledgerTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
@@ -60,8 +83,8 @@ public class OwnerFrame extends javax.swing.JFrame {
         phone.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         phone.setText("TEXT");
 
-        jTable1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        mainTable.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        mainTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -84,7 +107,7 @@ public class OwnerFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(mainTable);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Racun zgrade:");
@@ -141,15 +164,40 @@ public class OwnerFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Početna", jPanel1);
 
+        ledgerTable.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        ledgerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Datum i vreme", "Poruka"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(ledgerTable);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dnevnik", jPanel2);
@@ -214,8 +262,10 @@ public class OwnerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable ledgerTable;
+    private javax.swing.JTable mainTable;
     private javax.swing.JLabel phone;
     // End of variables declaration//GEN-END:variables
 }
