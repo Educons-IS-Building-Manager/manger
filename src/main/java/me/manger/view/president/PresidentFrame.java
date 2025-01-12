@@ -1,5 +1,7 @@
 package me.manger.view.president;
 
+import me.manger.view.president.newpackage.ZakaziSastanak;
+
 
 public class PresidentFrame extends javax.swing.JFrame {
 
@@ -72,7 +74,7 @@ public class PresidentFrame extends javax.swing.JFrame {
         jButton3.setToolTipText("");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3complaint(evt);
+                sastanak(evt);
             }
         });
 
@@ -351,9 +353,10 @@ public class PresidentFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2complaint
 
-    private void jButton3complaint(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3complaint
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3complaint
+    private void sastanak(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sastanak
+        ZakaziSastanak form = new ZakaziSastanak();
+        form.setVisible(true);
+    }//GEN-LAST:event_sastanak
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
