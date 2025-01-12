@@ -125,6 +125,7 @@ public class Login extends javax.swing.JFrame {
                 this.setVisible(false);
             }
         }
+        incorrectPassword.setText("Incorrect username");
     }//GEN-LAST:event_login
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
