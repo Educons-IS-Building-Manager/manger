@@ -1,109 +1,138 @@
-
 package me.manger.view;
 
+import java.util.ArrayList;
+import me.manger.view.admin.AdminFrame;
+import me.manger.model.Database;
+import me.manger.model.Options;
+import me.manger.model.user.Admin;
+import me.manger.model.user.Owner;
+import me.manger.model.user.President;
+import me.manger.view.owner.OwnerFrame;
+import me.manger.view.president.PresidentFrame;
 
 public class Login extends javax.swing.JFrame {
-    
-    String korisnickoIme = "Admin";
-    String lozinka = "admin123";
-
 
     public Login() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfKorisnickoIme = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        usernameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        pfLozinka = new javax.swing.JPasswordField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
-        jmain = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        passwordField = new javax.swing.JPasswordField();
+        incorrectPassword = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(850, 600));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setSize(new java.awt.Dimension(600, 400));
 
-        tfKorisnickoIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tfKorisnickoIme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfKorisnickoImeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tfKorisnickoIme, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 220, 40));
+        jLabel1.setText("Username");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        usernameField.setToolTipText("Username...");
+
+        jLabel2.setText("Password");
+
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                login(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 470, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Korisnicko Ime");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 115, 25));
+        incorrectPassword.setForeground(new java.awt.Color(255, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Lozinka");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 101, -1));
-
-        pfLozinka.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pfLozinkaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(pfLozinka, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 220, 40));
-        getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, -1, -1));
-
-        jmain.setIcon(new javax.swing.ImageIcon("C:\\Users\\Relja\\Documents\\NetBeansProjects\\manger\\src\\main\\resources\\images\\Login.jpg")); // NOI18N
-        jmain.setText("jLabel3");
-        getContentPane().add(jmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(incorrectPassword)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(usernameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(209, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(incorrectPassword)
+                .addContainerGap(115, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfKorisnickoImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfKorisnickoImeActionPerformed
-        
-    }//GEN-LAST:event_tfKorisnickoImeActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String inputKorisnickoIme = tfKorisnickoIme.getText();
-        String inputLozinka = pfLozinka.getText();
-        
-        if(!inputKorisnickoIme.equals(korisnickoIme))return;
-        if(!inputLozinka.equals(lozinka))return;
-        
-        LoginProzor noviProzor = new LoginProzor();
-        noviProzor.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void pfLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfLozinkaActionPerformed
-        
-    }//GEN-LAST:event_pfLozinkaActionPerformed
-
-
-    public static void main(String args[]) {
-        Login noviProzor = new Login();
-        noviProzor.setVisible(true);
-        noviProzor.setLocationRelativeTo(null);
-        noviProzor.setResizable(false);
-    }
+    private void login(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login
+        Admin admin = Database.getAdmin();
+        if(admin.getUsername().equals(usernameField.getText())) {
+            if(!admin.getPassword().equals(String.valueOf(passwordField.getPassword()))) {
+                incorrectPassword.setText("Incorrect password");
+                return;
+            }
+            AdminFrame frame = new AdminFrame();
+            frame.setResizable(false);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            this.setVisible(false);
+            return;
+        }
+        President president = Database.getPresident();
+        if(president.getUsername().equals(usernameField.getText())) {
+            if(!president.getPassword().equals(String.valueOf(passwordField.getPassword()))) {
+                incorrectPassword.setText("Incorrect password");
+                return;
+            }
+            PresidentFrame frame = new PresidentFrame();
+            frame.setResizable(false);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            this.setVisible(false);
+            return;
+        }
+        ArrayList<Owner> owners = Database.getOwners();
+        for(Owner owner : owners) {
+            if(usernameField.getText().equals(owner.getUsername())) {
+                if(!String.valueOf(passwordField.getPassword()).equals(owner.getPassword())) {
+                    incorrectPassword.setText("Incorrect password");
+                    return;
+                }
+                Options.loggedIn = owner;
+                OwnerFrame frame = new OwnerFrame();
+                frame.setResizable(false);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_login
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
+    private javax.swing.JLabel incorrectPassword;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jmain;
-    private javax.swing.JPasswordField pfLozinka;
-    private javax.swing.JTextField tfKorisnickoIme;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }
