@@ -126,6 +126,7 @@ public class OwnerFrame extends javax.swing.JFrame {
         notifTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Stanar");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 onClose(evt);
@@ -147,7 +148,7 @@ public class OwnerFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Broj stana", "Stanje na racunu"
+                "Broj stana", "Stanje na računu"
             }
         ) {
             Class[] types = new Class [] {
@@ -168,13 +169,13 @@ public class OwnerFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(mainTable);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setText("Racun zgrade:");
+        jLabel1.setText("Račun zgrade:");
 
         buildingBalance.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         buildingBalance.setText("TEXT");
 
         jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton1.setText("Posalji zalbu");
+        jButton1.setText("Pošalji žalbu");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 complaint(evt);
@@ -381,7 +382,7 @@ public class OwnerFrame extends javax.swing.JFrame {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Obavestenja", jPanel4);
+        jTabbedPane1.addTab("Obaveštenja", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

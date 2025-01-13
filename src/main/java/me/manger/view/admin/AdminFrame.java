@@ -150,6 +150,7 @@ public class AdminFrame extends javax.swing.JFrame {
         ownerBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Administrator");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 onClose(evt);
@@ -157,7 +158,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setText("Racun zgrade:");
+        jLabel1.setText("Račun zgrade:");
 
         buildingBalance.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         buildingBalance.setText("TEXT");
@@ -304,7 +305,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton3.setText("Izbrisi");
+        jButton3.setText("Izbriši");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteOwner(evt);
@@ -383,13 +384,13 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel2.setText("Povrsina:");
+        jLabel2.setText("Površina:");
 
         jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel4.setText("Broj stana:");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel5.setText("Stanje na racunu:");
+        jLabel5.setText("Stanje na računu:");
 
         number.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 

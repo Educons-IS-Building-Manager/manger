@@ -30,9 +30,10 @@ public class Withdrawal extends javax.swing.JFrame {
         error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Isplata");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setText("Izvrsi isplatu");
+        jLabel1.setText("Izvrši isplatu");
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setText("Iznos: ");
@@ -44,7 +45,8 @@ public class Withdrawal extends javax.swing.JFrame {
         amountSpinner.setMinimumSize(new java.awt.Dimension(100, 25));
         amountSpinner.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jButton1.setText("Ponisti");
+        jButton1.setText("Poništi");
+        jButton1.setToolTipText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancel(evt);

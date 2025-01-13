@@ -54,6 +54,7 @@ public class EditOwner extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Stanar [Editor]");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Korisnik");
@@ -68,7 +69,7 @@ public class EditOwner extends javax.swing.JFrame {
         jLabel4.setText("Email:");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel5.setText("Phone:");
+        jLabel5.setText("Telefon:");
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel6.setText("Password:");
@@ -83,7 +84,7 @@ public class EditOwner extends javax.swing.JFrame {
 
         password.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
 
-        jButton1.setText("Ponisti");
+        jButton1.setText("Poništi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancel(evt);

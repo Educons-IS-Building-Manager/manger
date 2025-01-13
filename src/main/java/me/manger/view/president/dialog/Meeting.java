@@ -34,9 +34,10 @@ public class Meeting extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sastanak");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setText("Zakazi sastanak");
+        jLabel1.setText("Zakaži sastanak");
 
         dateSpinner.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         dateSpinner.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1736706698792L), null, null, java.util.Calendar.MINUTE));
@@ -49,14 +50,14 @@ public class Meeting extends javax.swing.JFrame {
 
         message.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
 
-        jButton1.setText("Zakazi");
+        jButton1.setText("Zakaži");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 finish(evt);
             }
         });
 
-        jButton2.setText("Ponisti");
+        jButton2.setText("Poništi");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancel(evt);

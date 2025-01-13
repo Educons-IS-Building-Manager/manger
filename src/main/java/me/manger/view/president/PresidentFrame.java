@@ -154,6 +154,7 @@ public class PresidentFrame extends javax.swing.JFrame {
         notifTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Predsednik");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 onClose(evt);
@@ -161,13 +162,13 @@ public class PresidentFrame extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setText("Racun zgrade:");
+        jLabel1.setText("Račun zgrade:");
 
         buildingBalance.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         buildingBalance.setText("TEXT");
 
         jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton1.setText("Izvrsi uplatu");
+        jButton1.setText("Izvrši uplatu");
         jButton1.setToolTipText("");
         jButton1.setMaximumSize(new java.awt.Dimension(200, 39));
         jButton1.setMinimumSize(new java.awt.Dimension(200, 39));
@@ -179,7 +180,7 @@ public class PresidentFrame extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton2.setText("Izvrsi isplatu");
+        jButton2.setText("Izvrši isplatu");
         jButton2.setToolTipText("");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,10 +223,10 @@ public class PresidentFrame extends javax.swing.JFrame {
         jLabel5.setText("Broj stana: ");
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel6.setText("Povrsina: ");
+        jLabel6.setText("Površina: ");
 
         jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel7.setText("Stanje na racunu: ");
+        jLabel7.setText("Stanje na računu: ");
 
         aptNumber.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
 
@@ -451,7 +452,7 @@ public class PresidentFrame extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Obavestenja", jPanel4);
+        jTabbedPane1.addTab("Obaveštenja", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

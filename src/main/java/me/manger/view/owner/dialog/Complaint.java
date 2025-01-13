@@ -19,22 +19,23 @@ public class Complaint extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Zalba");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setText("Prijavite zalbu");
+        jLabel1.setText("Prijavite žalbu");
 
         poruka.setColumns(20);
         poruka.setRows(5);
         jScrollPane1.setViewportView(poruka);
 
-        jButton1.setText("Posalji");
+        jButton1.setText("Pošalji");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 send(evt);
             }
         });
 
-        jButton2.setText("Ponisti");
+        jButton2.setText("Poništi");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancel(evt);
