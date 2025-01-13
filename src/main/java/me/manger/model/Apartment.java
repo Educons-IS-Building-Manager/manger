@@ -1,4 +1,4 @@
-package me.manger.model.building;
+package me.manger.model;
 
 import java.util.ArrayList;
 import me.manger.model.user.Owner;
@@ -37,5 +37,20 @@ public class Apartment {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+    
+    public void deposit(double amount) {
+        balance += amount;
+    }
+    
+    public void withdraw(double amount) {
+        balance -= amount;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
+    
+    
 
 }

@@ -1,6 +1,7 @@
 package me.manger.view;
 
 import java.util.ArrayList;
+import me.manger.db.WriteFile;
 import me.manger.view.admin.AdminFrame;
 import me.manger.model.Database;
 import me.manger.model.Options;
@@ -30,10 +31,19 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setSize(new java.awt.Dimension(600, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                onOpen(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onClose(evt);
+            }
+        });
 
         jLabel1.setText("Username");
 
-        usernameField.setToolTipText("Username...");
+        usernameField.setToolTipText("");
+        usernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel2.setText("Password");
 
@@ -127,6 +137,16 @@ public class Login extends javax.swing.JFrame {
         }
         incorrectPassword.setText("Incorrect username");
     }//GEN-LAST:event_login
+
+    private void onOpen(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onOpen
+        usernameField.setText("");
+        passwordField.setText("");
+        incorrectPassword.setText("");
+    }//GEN-LAST:event_onOpen
+
+    private void onClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onClose
+        WriteFile.saveDB();
+    }//GEN-LAST:event_onClose
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel incorrectPassword;

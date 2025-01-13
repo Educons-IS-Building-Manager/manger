@@ -1,21 +1,21 @@
 package me.manger;
 
 import me.manger.db.LoadFile;
-import me.manger.db.WriteFile;
 import me.manger.view.Login;
 
 public class Manger {
+    
+    public static Login login;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-            LoadFile.loadDB();
-            
-            Login login = new Login();
-            login.setVisible(true);
-            login.setLocationRelativeTo(null);
-            login.setResizable(false);
-            
-            WriteFile.saveDB();
+        LoadFile.loadDB();
 
-	}
+        login = new Login();
+        login.setLocationRelativeTo(null);
+        login.setResizable(false);
+        login.setVisible(true);
+
+    }
+    
 }

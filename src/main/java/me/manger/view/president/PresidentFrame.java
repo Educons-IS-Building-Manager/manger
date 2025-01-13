@@ -1,15 +1,116 @@
 package me.manger.view.president;
 
-import me.manger.view.president.newpackage.ZakaziSastanak;
-
+import java.awt.Font;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultListModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import me.manger.Manger;
+import me.manger.db.WriteFile;
+import me.manger.model.Apartment;
+import me.manger.model.Company;
+import me.manger.model.Database;
+import me.manger.model.Notification;
+import me.manger.model.Options;
+import me.manger.model.ledger.Entry;
+import me.manger.model.user.Owner;
+import me.manger.model.user.President;
+import me.manger.view.president.dialog.Deposit;
+import me.manger.view.president.dialog.Meeting;
+import me.manger.view.president.dialog.Withdrawal;
 
 public class PresidentFrame extends javax.swing.JFrame {
+    
+    DefaultTableModel modelLedger;
+    DefaultTableModel modelNotif;
 
-  
     public PresidentFrame() {
         initComponents();
+        initMain();
+        initLedger();
+        initContact();
+        initNotif();
     }
-
+    
+    private void initNotif() {
+        notifTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        notifTable.getColumnModel().getColumn(0).setPreferredWidth(220);
+        notifTable.getColumnModel().getColumn(0).setMaxWidth(220);
+        
+        notifTable.getTableHeader().setFont(new Font("sansserif", Font.BOLD, 18));
+        notifTable.setRowHeight(30);
+        
+        refreshNotifs();
+    }
+    
+    public void refreshNotifs() {
+        modelNotif = (DefaultTableModel) notifTable.getModel();
+        modelNotif.setRowCount(0);
+        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+        for(Notification notif : Database.getPresident().getNotifications()){
+            modelNotif.addRow(new Object[]{dt.format(notif.getDate()), notif.getMessage()});
+        }
+        notifTable.changeSelection(notifTable.getRowCount() - 1, 0, false, false);
+    }
+    
+    private void initContact() {
+        Company company = Database.getCompany();
+        firmName.setText(company.getName());
+        firmMail.setText(company.getEmail());
+        firmPhone.setText(company.getPhoneNumber());
+    }
+    
+    private void initMain() {
+        President president = Database.getPresident();
+        fullName.setText(president.getFirstName() + " " + president.getLastName());
+        email.setText(president.getEmail());
+        phone.setText(president.getPhone());
+        buildingBalance.setText(Database.getBuilding().getTotalMoney() + "€");
+        
+        DefaultListModel lm = new DefaultListModel();
+        for(Apartment temp : Database.getBuilding().getApartments()) {
+            lm.addElement(String.valueOf(temp.getNumber()));
+        }
+        apartmentList.setModel(lm);
+    }
+    
+    public void refreshAptBalance() {
+        Apartment apartment;
+        try {
+            apartment = search(Integer.parseInt(apartmentList.getSelectedValue()));
+        } catch(NumberFormatException e) {
+            return;
+        }
+        if(apartment == null) {
+            return;
+        }
+        aptBalance.setText(String.format("%.2f", apartment.getBalance()) + "€");
+    }
+    
+    public void refreshBuildingBalance() {
+        buildingBalance.setText(String.valueOf(Database.getBuilding().getTotalMoney()));
+    }
+    
+    private void initLedger() {
+        ledgerTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        ledgerTable.getColumnModel().getColumn(0).setPreferredWidth(220);
+        ledgerTable.getColumnModel().getColumn(0).setMaxWidth(220);
+        
+        ledgerTable.getTableHeader().setFont(new Font("sansserif", Font.BOLD, 18));
+        ledgerTable.setRowHeight(30);
+        
+        refreshLedger();
+    }
+    
+    public void refreshLedger() {
+        modelLedger = (DefaultTableModel) ledgerTable.getModel();
+        modelLedger.setRowCount(0);
+        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+        for(Entry entry : Database.getLedger().getEntries()) {
+            modelLedger.addRow(new Object[]{dt.format(entry.getDate()), entry.getMessage()});
+        }
+        ledgerTable.changeSelection(ledgerTable.getRowCount() - 1, 0, false, false);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -26,24 +127,36 @@ public class PresidentFrame extends javax.swing.JFrame {
         fullName = new javax.swing.JLabel();
         email = new javax.swing.JLabel();
         phone = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaStanova = new javax.swing.JList<>();
+        apartmentList = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        aptNumber = new javax.swing.JLabel();
+        aptBalance = new javax.swing.JLabel();
+        aptArea = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        ownerList = new javax.swing.JList<>();
+        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        ledgerTable1 = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        ledgerTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        firmName = new javax.swing.JLabel();
+        firmMail = new javax.swing.JLabel();
+        firmPhone = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        ledgerTable = new javax.swing.JTable();
+        notifTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onClose(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Racun zgrade:");
@@ -54,9 +167,12 @@ public class PresidentFrame extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton1.setText("Izvrsi uplatu");
         jButton1.setToolTipText("");
+        jButton1.setMaximumSize(new java.awt.Dimension(200, 39));
+        jButton1.setMinimumSize(new java.awt.Dimension(200, 39));
+        jButton1.setPreferredSize(new java.awt.Dimension(200, 39));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1complaint(evt);
+                deposit(evt);
             }
         });
 
@@ -65,7 +181,7 @@ public class PresidentFrame extends javax.swing.JFrame {
         jButton2.setToolTipText("");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2complaint(evt);
+                withdrawal(evt);
             }
         });
 
@@ -87,78 +203,139 @@ public class PresidentFrame extends javax.swing.JFrame {
         phone.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         phone.setText("TEXT");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jTextField1.setText("Stanovi");
-        jTextField1.setToolTipText("");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        apartmentList.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        apartmentList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        apartmentList.setPreferredSize(new java.awt.Dimension(100, 175));
+        apartmentList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                click(evt);
             }
         });
+        jScrollPane2.setViewportView(apartmentList);
 
-        listaStanova.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        listaStanova.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "1", "2", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel2.setText("Stanovi");
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel5.setText("Broj stana: ");
+
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel6.setText("Povrsina: ");
+
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel7.setText("Stanje na racunu: ");
+
+        aptNumber.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+
+        aptBalance.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+
+        aptArea.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+
+        ownerList.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jScrollPane6.setViewportView(ownerList);
+
+        jButton4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jButton4.setText("Log out");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logout(evt);
+            }
         });
-        jScrollPane2.setViewportView(listaStanova);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fullName)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(phone)
-                    .addComponent(email)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buildingBalance))
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addGap(42, 42, 42))
+                    .addComponent(email)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phone)
+                    .addComponent(fullName))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(aptNumber)
+                                    .addComponent(aptBalance)
+                                    .addComponent(aptArea)))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(96, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(fullName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(phone)
-                .addGap(73, 73, 73)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(buildingBalance))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fullName)
+                            .addComponent(jLabel2)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton4)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(phone)
+                                .addGap(60, 60, 60)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(buildingBalance)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(aptNumber))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(aptArea))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(aptBalance))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Početna", jPanel1);
 
-        ledgerTable1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        ledgerTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ledgerTable.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        ledgerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -174,7 +351,7 @@ public class PresidentFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(ledgerTable1);
+        jScrollPane7.setViewportView(ledgerTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -182,135 +359,78 @@ public class PresidentFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dnevnik", jPanel2);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel3.setText("Admin");
+        jLabel9.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
+        jLabel9.setText("Firma");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel4.setText("Firma");
+        firmName.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        firmName.setText("TEXT");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        firmMail.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        firmMail.setText("TEXT");
 
-            },
-            new String [] {
-                "Ime", "Email"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Ime", "Prezime", "Email", "Broj telefona"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(jTable2);
+        firmPhone.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        firmPhone.setText("TEXT");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(288, 288, 288)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(164, 164, 164))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(368, 368, 368)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(firmPhone)
+                    .addComponent(firmName)
+                    .addComponent(jLabel9)
+                    .addComponent(firmMail))
+                .addContainerGap(435, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(104, 104, 104)
+                .addComponent(jLabel9)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addComponent(firmName)
+                .addGap(18, 18, 18)
+                .addComponent(firmMail)
+                .addGap(18, 18, 18)
+                .addComponent(firmPhone)
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Kontakti", jPanel3);
 
-        ledgerTable.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        ledgerTable.setModel(new javax.swing.table.DefaultTableModel(
+        notifTable.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        notifTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
-                "Obavaštenja"
+                "Datum i vreme", "Poruka"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(ledgerTable);
+        jScrollPane3.setViewportView(notifTable);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -319,14 +439,14 @@ public class PresidentFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Obavestenja", jPanel4);
@@ -345,51 +465,95 @@ public class PresidentFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1complaint(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1complaint
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1complaint
-
-    private void jButton2complaint(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2complaint
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2complaint
+    private void onClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onClose
+        WriteFile.saveDB();
+    }//GEN-LAST:event_onClose
 
     private void sastanak(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sastanak
-        ZakaziSastanak form = new ZakaziSastanak();
-        form.setVisible(true);
+        Meeting dialog = new Meeting(this);
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
     }//GEN-LAST:event_sastanak
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-     
+    private void withdrawal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawal
+        Withdrawal dialog = new Withdrawal(this);
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_withdrawal
+
+    private void deposit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deposit
+        Deposit dialog = new Deposit(this);
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_deposit
+
+    private void logout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout
+        Manger.login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logout
+
+    private void click(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_click
+        Apartment apartment = search(Integer.parseInt(apartmentList.getSelectedValue()));
+        if(apartment == null) {
+            return;
+        }
+        aptNumber.setText(String.valueOf(apartment.getNumber()));
+        aptArea.setText(String.valueOf(apartment.getArea()));
+        aptBalance.setText(String.format("%.2f", apartment.getBalance()) + "€");
+
+        DefaultListModel lm = new DefaultListModel();
+        for(Owner temp : apartment.getOwners()) {
+            lm.addElement(temp.getFirstName() + " " + temp.getLastName() + " (" + temp.getUsername() + ")");
+        }
+        ownerList.setModel(lm);
+    }//GEN-LAST:event_click
+    
+    private Apartment search(int number) {
+        for(Apartment apartment : Database.getBuilding().getApartments()) {
+            if(apartment.getNumber() == number) {
+                return apartment;
+            }
+        }
+        return null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> apartmentList;
+    private javax.swing.JLabel aptArea;
+    private javax.swing.JLabel aptBalance;
+    private javax.swing.JLabel aptNumber;
     private javax.swing.JLabel buildingBalance;
     private javax.swing.JLabel email;
+    private javax.swing.JLabel firmMail;
+    private javax.swing.JLabel firmName;
+    private javax.swing.JLabel firmPhone;
     private javax.swing.JLabel fullName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane5;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable ledgerTable;
-    private javax.swing.JTable ledgerTable1;
-    private javax.swing.JList<String> listaStanova;
+    private javax.swing.JTable notifTable;
+    private javax.swing.JList<String> ownerList;
     private javax.swing.JLabel phone;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,6 @@
-package me.manger.model.building;
+package me.manger.model;
 
+import me.manger.model.Apartment;
 import java.util.ArrayList;
 
 public class Building {
@@ -25,6 +26,14 @@ public class Building {
 
     public ArrayList<Apartment> getApartments() {
         return apartments;
+    }
+    
+    public void deposit(double amount) {
+        totalMoney += amount;
+    }
+    
+    public void withdraw(double amount) {
+        totalMoney -= amount;
     }
 
     public void setTotalMoney(double totalMoney) {

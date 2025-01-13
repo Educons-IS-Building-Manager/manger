@@ -1,6 +1,6 @@
 package me.manger.model.user;
 
-import me.manger.model.building.Apartment;
+import me.manger.model.Apartment;
 import me.manger.model.Notification;
 
 import java.util.ArrayList;

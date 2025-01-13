@@ -1,6 +1,5 @@
 package me.manger.model;
 
-import me.manger.model.building.Building;
 import me.manger.model.ledger.Ledger;
 import me.manger.model.user.Admin;
 import me.manger.model.user.Owner;
