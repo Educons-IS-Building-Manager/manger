@@ -11,9 +11,7 @@ import me.manger.model.user.Admin;
 import me.manger.model.user.Owner;
 import me.manger.model.user.President;
 
-import javax.xml.crypto.Data;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -149,6 +147,9 @@ public class LoadFile {
     public static Ledger loadLedger() {
         ArrayList<Entry> entries = new ArrayList<>();
         try {
+            if(Files.readString(Paths.get(FileNames.LEDGER)).trim().length() == 0) {
+                return new Ledger(entries);
+            }
             List<String> lines = Files.readAllLines(Paths.get(FileNames.LEDGER));
             if(lines.isEmpty()) {
                 return new Ledger();
