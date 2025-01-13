@@ -138,8 +138,18 @@ public class Withdrawal extends javax.swing.JFrame {
             return;
         }
         Database.getBuilding().withdraw(amount);
+        int counter = 0;
         for(Apartment temp : Database.getBuilding().getApartments()) {
-            temp.withdraw(amount / Database.getBuilding().getApartments().size());
+            if(!temp.getOwners().isEmpty()) {
+                counter++;
+            }
+        }
+        for(Apartment temp : Database.getBuilding().getApartments()) {
+            if(temp.getOwners().isEmpty()) {
+                continue;
+            }
+            System.out.println(amount / counter);
+            temp.withdraw(amount / counter);
         }
         Database.getLedger().addEntry("Skinuto " + amount + "€: " + message);
         frame.refreshLedger();
