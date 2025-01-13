@@ -140,12 +140,12 @@ public class Withdrawal extends javax.swing.JFrame {
         Database.getBuilding().withdraw(amount);
         int counter = 0;
         for(Apartment temp : Database.getBuilding().getApartments()) {
-            if(!temp.getOwners().isEmpty()) {
+            if(!temp.getOwners().isEmpty() || temp.getBalance() > 0) {
                 counter++;
             }
         }
         for(Apartment temp : Database.getBuilding().getApartments()) {
-            if(temp.getOwners().isEmpty()) {
+            if(temp.getOwners().isEmpty() || temp.getBalance() > 0) {
                 continue;
             }
             System.out.println(amount / counter);
