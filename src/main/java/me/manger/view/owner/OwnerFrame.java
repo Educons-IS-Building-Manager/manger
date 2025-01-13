@@ -28,6 +28,10 @@ public class OwnerFrame extends javax.swing.JFrame {
         initLedger();
         initContact();
         initNotif();
+        
+        notifTable.setDefaultEditor(Object.class, null);
+        ledgerTable.setDefaultEditor(Object.class, null);
+        mainTable.setDefaultEditor(Object.class, null);
     }
     
     private void initNotif() {

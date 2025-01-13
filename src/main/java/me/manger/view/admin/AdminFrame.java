@@ -34,6 +34,10 @@ public class AdminFrame extends javax.swing.JFrame {
         initLedger();
         initOwners();
         initApts();
+        
+        ledgerTable.setDefaultEditor(Object.class, null);
+        ownersTable.setDefaultEditor(Object.class, null);
+        aptOwnersTable.setDefaultEditor(Object.class, null);
     }
     
     private void initApts() {

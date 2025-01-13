@@ -169,10 +169,10 @@ public class EditOwner extends javax.swing.JFrame {
     }//GEN-LAST:event_cancel
 
     private void submit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit
-        if(firstName.getText().isEmpty()) return;
-        if(lastName.getText().isEmpty()) return;
-        if(email.getText().isEmpty()) return;
-        if(phone.getText().isEmpty()) return;
+        if(firstName.getText().isBlank()) return;
+        if(lastName.getText().isBlank()) return;
+        if(email.getText().isBlank()) return;
+        if(phone.getText().isBlank()) return;
         if(password.getPassword().length == 0) return;
         if(opcode == 0) {
             Owner owner = new Owner(firstName.getText(), lastName.getText(), email.getText(), phone.getText(),

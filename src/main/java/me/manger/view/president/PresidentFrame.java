@@ -11,7 +11,6 @@ import me.manger.model.Apartment;
 import me.manger.model.Company;
 import me.manger.model.Database;
 import me.manger.model.Notification;
-import me.manger.model.Options;
 import me.manger.model.ledger.Entry;
 import me.manger.model.user.Owner;
 import me.manger.model.user.President;
@@ -30,6 +29,9 @@ public class PresidentFrame extends javax.swing.JFrame {
         initLedger();
         initContact();
         initNotif();
+        
+        ledgerTable.setDefaultEditor(Object.class, null);
+        notifTable.setDefaultEditor(Object.class, null);
     }
     
     private void initNotif() {
