@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import me.manger.model.Database;
-import me.manger.model.Notification;
 import me.manger.model.user.Owner;
 import me.manger.view.admin.AdminFrame;
 

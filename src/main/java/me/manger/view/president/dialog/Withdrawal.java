@@ -147,7 +147,7 @@ public class Withdrawal extends javax.swing.JFrame {
             }
         }
         for(Apartment temp : Database.getBuilding().getApartments()) {
-            if(temp.getOwners().isEmpty() || temp.getBalance() > 0) {
+            if(temp.getOwners().isEmpty() || temp.getBalance() <= 0) {
                 continue;
             }
             System.out.println(amount / counter);
